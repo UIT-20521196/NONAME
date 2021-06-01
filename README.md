@@ -10,6 +10,22 @@ void gotoxy(int column, int line);
 struct Point {
     int x, y;
 };
+// mau sac man hinh
+void SetColor(int backgound_color, int text_color)
+{
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int color_code = backgound_color * 16 + text_color;
+    SetConsoleTextAttribute(hStdout, color_code);
+}
+// tat hien thi con tro
+void Nocursortype()
+{
+    CONSOLE_CURSOR_INFO Info;
+    Info.bVisible = FALSE;
+    Info.dwSize = 20;
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
+}
 class CONRAN {
 public:
     struct Point A[100];
