@@ -512,7 +512,7 @@ nhap=true;
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, heigh - 1 + 5);
-            cout << (char)223
+            cout << (char)223;
         }
         Sleep(300);
         if (_kbhit())
