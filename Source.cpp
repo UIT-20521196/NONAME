@@ -209,7 +209,7 @@ void draw()
     for (int i = 0; i < width; i++)
     {
         gotoxy(i + 15, 0 + 5);
-        cout << "+";
+        cout << (char)220;
     }
 
     if (gameover)
@@ -222,7 +222,14 @@ void draw()
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    cout << "+";
+                    if(j==0)
+                    {
+                        cout<<(char)221;
+                    }
+                    else
+                    {
+                        cout<<(char)222;
+                    }
                 }
 
                 if (j >= (width / 2 - 4) && (j < width / 2 + 4) && i == heigh / 2)
@@ -251,7 +258,14 @@ void draw()
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    cout << "+";
+                    if(j==0)
+                    {
+                        cout<<(char)221;
+                    }
+                    else
+                    {
+                        cout<<(char)222;
+                    }
                 }
                 if (i == fruitx && j == fruity)
                 {
@@ -272,7 +286,7 @@ void draw()
     for (int i = 0; i < width; i++)
     {
         gotoxy(i + 15, heigh - 1 + 5);
-        cout << "+";
+        cout << (char)223;
     }
     gotoxy(0 + 15, heigh + 5);
     cout << "SCORE:" << score << endl;
@@ -298,7 +312,7 @@ void start_game()
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, 0 + 5);
-            cout << "+";
+            cout << (char)220;
         }
         int index = 0, index1 = 0,index2=0,index3=0;
         for (int i = 1; i < heigh - 1; i++)
@@ -308,7 +322,14 @@ void start_game()
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    cout << "+";
+                    if(j==0)
+                    {
+                        cout<<(char)221;
+                    }
+                    else
+                    {
+                        cout<<(char)222;
+                    }
                 }
                 if (j >= (width / 2 - 2) && (j < width / 2 + 2) && i == heigh / 2)
                 {
@@ -383,7 +404,7 @@ void start_game()
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, heigh - 1 + 5);
-            cout << "+";
+            cout << (char)223;
         }
 
         input();
@@ -412,7 +433,7 @@ void instruction()
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, 0 + 5);
-            cout << "+";
+            cout << (char)220;
         }
          for (int i = 1; i < heigh - 1; i++)
         {
@@ -421,14 +442,21 @@ void instruction()
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    cout << "+";
+                    if(j==0)
+                    {
+                        cout<<(char)221;
+                    }
+                    else
+                    {
+                        cout<<(char)222;
+                    }
                 }
             }
         }
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, heigh - 1 + 5);
-            cout << "+";
+            cout << (char)223;
         }
         Sleep(300);
         if (_kbhit())
@@ -461,7 +489,7 @@ nhap=true;
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, 0 + 5);
-            cout << "+";
+            cout << (char)220;
         }
          for (int i = 1; i < heigh - 1; i++)
         {
@@ -470,14 +498,21 @@ nhap=true;
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    cout << "+";
+                    if(j==0)
+                    {
+                        cout<<(char)221;
+                    }
+                    else
+                    {
+                        cout<<(char)222;
+                    }
                 }
             }
         }
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, heigh - 1 + 5);
-            cout << "+";
+            cout << (char)223
         }
         Sleep(300);
         if (_kbhit())
@@ -519,7 +554,7 @@ void show_hightscore()
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, 0 + 5);
-            cout << "+";
+            cout << (char)220;
         }
          for (int i = 1; i < heigh - 1; i++)
         {
@@ -528,14 +563,21 @@ void show_hightscore()
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    cout << "+";
+                    if(j==0)
+                    {
+                        cout<<(char)221;
+                    }
+                    else
+                    {
+                        cout<<(char)222;
+                    }
                 }
             }
         }
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, heigh - 1 + 5);
-            cout << "+";
+            cout << (char)223;
         }
         Sleep(300);
         if (_kbhit())
