@@ -5,13 +5,15 @@
 #include <stdlib.h>
 #include <io.h>
 #include <direct.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 const int heigh = 30, width = 30;
 int x, y, fruitx, fruity, score;
-map<int,string>name;
+map<int, string>name;
 
-set<int,greater<int>>scorebroad;
-bool choosing,in_instruction,showscore,nhap;
+set<int, greater<int>>scorebroad;
+bool choosing, in_instruction, showscore, nhap;
 enum direction
 {
     STOP = 0,
@@ -28,21 +30,22 @@ string ten;
 map<string, int> ce;
 map<int, string> ec;
 
-vector<char> game{'g', 'a', 'm', 'e', 'o', 'v', 'e', 'r'};
-vector<char> play{'p', 'l', 'a', 'y'};
-vector<char> quit{'q', 'u', 'i', 't'};
-vector<char>instr{'i','n','s','t','r','u','c','t','i','o','n',' '};
-string hs="hight score";
-bool gameover, start,st,change,on=true;
+vector<char> game{ 'g', 'a', 'm', 'e', 'o', 'v', 'e', 'r' };
+vector<char> play{ 'p', 'l', 'a', 'y' };
+vector<char> quit{ 'q', 'u', 'i', 't' };
+vector<char>instr{ 'i','n','s','t','r','u','c','t','i','o','n',' ' };
+string hs = "hight score";
+bool gameover, start, st, change, on = true;
 int snakex[361];
 int snakey[361];
-int snake ,temp;
+int snake, temp;
 void SetColor(int ForgC);
 void gotoxy(int column, int line);
 void input()
 {
     if (_kbhit())
-    {    change=true;
+    {
+        change = true;
         switch (_getch())
         {
         case 'a':
@@ -69,29 +72,29 @@ void logic1()
     switch (dir)
     {
     case UP:
-        if(change&&temp!=1)
+        if (change && temp != 1)
         {
-            temp-=1;
-            change=false;
+            temp -= 1;
+            change = false;
         }
-        ce[ec[temp]]=1;
-        ce[ec[temp+1]]=0;
+        ce[ec[temp]] = 1;
+        ce[ec[temp + 1]] = 0;
         break;
 
     case DOWN:
-        if(change&&temp!=4)
+        if (change && temp != 4)
         {
-            temp+=1;
-            change=false;
+            temp += 1;
+            change = false;
         }
-        ce[ec[temp]]=1;
-        ce[ec[temp-1]]=0;
+        ce[ec[temp]] = 1;
+        ce[ec[temp - 1]] = 0;
 
         break;
 
     case CHOOSE:
         choosing = true;
-        st=true;
+        st = true;
         break;
     default:
         break;
@@ -99,20 +102,20 @@ void logic1()
 }
 void logic()
 {
-    if(!st){
-    int prevx = snakex[0] = x;
-    int prevy = snakey[0] = y;
-    int prev2x;
-    int prev2y;
-    for (int i = 1; i < snake; i++)
-    {
-        prev2x = snakex[i];
-        prev2y = snakey[i];
-        snakex[i] = prevx;
-        snakey[i] = prevy;
-        prevx = prev2x;
-        prevy = prev2y;
-    }
+    if (!st) {
+        int prevx = snakex[0] = x;
+        int prevy = snakey[0] = y;
+        int prev2x;
+        int prev2y;
+        for (int i = 1; i < snake; i++)
+        {
+            prev2x = snakex[i];
+            prev2y = snakey[i];
+            snakex[i] = prevx;
+            snakey[i] = prevy;
+            prevx = prev2x;
+            prevy = prev2y;
+        }
     }
     switch (dir)
     {
@@ -120,18 +123,18 @@ void logic()
         st = true;
         break;
     case UP:
-        x--;st=false;
+        x--; st = false;
         break;
 
     case DOWN:
-        x++;st=false;
+        x++; st = false;
         break;
 
     case RIGHT:
-        y++;st=false;
+        y++; st = false;
         break;
     case LEFT:
-        y--;st=false;
+        y--; st = false;
         break;
 
 
@@ -141,21 +144,23 @@ void logic()
     if (!st)
     {
         if (x <= 0 || x > width - 2 || y <= 0 || y > heigh - 2)
-            {gameover = true;
-              name[score]=ten;
-                scorebroad.insert(score);
+        {
+            gameover = true;
+            name[score] = ten;
+            scorebroad.insert(score);
 
-            }
+        }
         for (int i = 1; i < snake; i++)
         {
             if (snakex[i] == x && snakey[i] == y)
-                {gameover = true;
+            {
+                gameover = true;
 
                 scorebroad.insert(temp);
 
 
 
-                }
+            }
         }
 
         if (x == fruitx && y == fruity)
@@ -168,28 +173,29 @@ void logic()
     }
 }
 void setup()
-{  st=false;
+{
+    st = false;
     start = false;
-    temp=1;
-    snake=3;
-    change=false;
-    di=STOP;
+    temp = 1;
+    snake = 3;
+    change = false;
+    di = STOP;
     ce["play"] = 1;
     ce["quit"] = 0;
-    ce["instruction"]=0;
-    ce["hight score"]=0;
-    ec[1]="play";
-    ec[2]="quit";
-    ec[4]="instruction";
-    ec[3]="hight score";
+    ce["instruction"] = 0;
+    ce["hight score"] = 0;
+    ec[1] = "play";
+    ec[2] = "quit";
+    ec[4] = "instruction";
+    ec[3] = "hight score";
     SetColor(25);
     gameover = false;
-    in_instruction=false;
+    in_instruction = false;
     choosing = false;
 
     dir = STOP;
-    x = width /2;
-    y = heigh /2;
+    x = width / 2;
+    y = heigh / 2;
     snakex[0] = x;
     snakey[0] = y;
     for (int i = 1; i < snake; i++)
@@ -222,13 +228,13 @@ void draw()
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    if(j==0)
+                    if (j == 0)
                     {
-                        cout<<(char)221;
+                        cout << (char)221;
                     }
                     else
                     {
-                        cout<<(char)222;
+                        cout << (char)222;
                     }
                 }
 
@@ -258,13 +264,13 @@ void draw()
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    if(j==0)
+                    if (j == 0)
                     {
-                        cout<<(char)221;
+                        cout << (char)221;
                     }
                     else
                     {
-                        cout<<(char)222;
+                        cout << (char)222;
                     }
                 }
                 if (i == fruitx && j == fruity)
@@ -307,14 +313,14 @@ void start_game()
 
         gotoxy(18, 10);
         cout << "press s to down";
-           gotoxy(18,13);
-           cout<<"SCORE:"<<score;
+        gotoxy(18, 13);
+        cout << "SCORE:" << score;
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, 0 + 5);
             cout << (char)220;
         }
-        int index = 0, index1 = 0,index2=0,index3=0;
+        int index = 0, index1 = 0, index2 = 0, index3 = 0;
         for (int i = 1; i < heigh - 1; i++)
         {
             for (int j = 0; j < width; j++)
@@ -322,13 +328,13 @@ void start_game()
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    if(j==0)
+                    if (j == 0)
                     {
-                        cout<<(char)221;
+                        cout << (char)221;
                     }
                     else
                     {
-                        cout<<(char)222;
+                        cout << (char)222;
                     }
                 }
                 if (j >= (width / 2 - 2) && (j < width / 2 + 2) && i == heigh / 2)
@@ -348,7 +354,7 @@ void start_game()
                         index++;
                     }
                 }
-                if (j >= (width / 2 - 2) && (j < width / 2 + 2) && i == (heigh / 2) + 1 )
+                if (j >= (width / 2 - 2) && (j < width / 2 + 2) && i == (heigh / 2) + 1)
                 {
                     if (ce["quit"])
                     {
@@ -365,7 +371,7 @@ void start_game()
                         index1++;
                     }
                 }
-                 if (j >= (width / 2 - 6) && (j < width / 2 + 6) && i == (heigh / 2) + 2 )
+                if (j >= (width / 2 - 6) && (j < width / 2 + 6) && i == (heigh / 2) + 2)
                 {
                     if (ce["hight score"])
                     {
@@ -382,7 +388,7 @@ void start_game()
                         index2++;
                     }
                 }
-                 if (j >= (width / 2 - 6) && (j < width / 2 + 6) && i == (heigh / 2) + 3 )
+                if (j >= (width / 2 - 6) && (j < width / 2 + 6) && i == (heigh / 2) + 3)
                 {
                     if (ce["instruction"])
                     {
@@ -413,42 +419,44 @@ void start_game()
     }
 }
 void instruction()
-{   in_instruction=true;
-    while(in_instruction)
-    {   system("cls");
+{
+    in_instruction = true;
+    while (in_instruction)
+    {
+        system("cls");
         SetColor(11);
-       gotoxy(18,8);
-       cout<<"w:up";
-       gotoxy(18,9);
-       cout<<"s:down";
-       gotoxy(18,10);
-       cout<<"a:left";
-       gotoxy(18,11);
-       cout<<"d:right";
-       gotoxy(18,12);
-       cout<<"space: pause";
-       gotoxy(18,13);
-       cout<<"fress b to back";
+        gotoxy(18, 8);
+        cout << "w:up";
+        gotoxy(18, 9);
+        cout << "s:down";
+        gotoxy(18, 10);
+        cout << "a:left";
+        gotoxy(18, 11);
+        cout << "d:right";
+        gotoxy(18, 12);
+        cout << "space: pause";
+        gotoxy(18, 13);
+        cout << "fress b to back";
 
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, 0 + 5);
             cout << (char)220;
         }
-         for (int i = 1; i < heigh - 1; i++)
+        for (int i = 1; i < heigh - 1; i++)
         {
             for (int j = 0; j < width; j++)
             {
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    if(j==0)
+                    if (j == 0)
                     {
-                        cout<<(char)221;
+                        cout << (char)221;
                     }
                     else
                     {
-                        cout<<(char)222;
+                        cout << (char)222;
                     }
                 }
             }
@@ -460,30 +468,32 @@ void instruction()
         }
         Sleep(300);
         if (_kbhit())
-    {    change=true;
-        switch (_getch())
         {
-        case 'b':
-            in_instruction=false;
-            choosing=false;
-            break;
+            change = true;
+            switch (_getch())
+            {
+            case 'b':
+                in_instruction = false;
+                choosing = false;
+                break;
+            }
         }
+
+
     }
-
-
 }
-}
-void nhapten(){
- ten=" ";
- int longg =0;
-nhap=true;
-    while(nhap)
-    {   system("cls");
-       gotoxy(18,6);
-            cout<<"fress . to save";
-            gotoxy(18,9);
-       cout<<"moi ban nhap ten:";
-       cout<<ten;
+void nhapten() {
+    ten = " ";
+    int longg = 0;
+    nhap = true;
+    while (nhap)
+    {
+        system("cls");
+        gotoxy(18, 6);
+        cout << "fress . to save";
+        gotoxy(18, 9);
+        cout << "moi ban nhap ten:";
+        cout << ten;
 
 
         for (int i = 0; i < width; i++)
@@ -491,20 +501,20 @@ nhap=true;
             gotoxy(i + 15, 0 + 5);
             cout << (char)220;
         }
-         for (int i = 1; i < heigh - 1; i++)
+        for (int i = 1; i < heigh - 1; i++)
         {
             for (int j = 0; j < width; j++)
             {
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    if(j==0)
+                    if (j == 0)
                     {
-                        cout<<(char)221;
+                        cout << (char)221;
                     }
                     else
                     {
-                        cout<<(char)222;
+                        cout << (char)222;
                     }
                 }
             }
@@ -516,60 +526,63 @@ nhap=true;
         }
         Sleep(300);
         if (_kbhit())
-    {    change=true;
-     ten+=_getch();
-     longg++;
-        switch ( ten[longg])
         {
-        case '.':
-            nhap=false;
-            choosing=false;
-            break;
+            change = true;
+            ten += _getch();
+            longg++;
+            switch (ten[longg])
+            {
+            case '.':
+                nhap = false;
+                choosing = false;
+                break;
+            }
+
+
         }
 
 
     }
-
-
-}
 }
 
 void show_hightscore()
 {
-    showscore=true;
-    while(showscore)
-    {   system("cls");
-    SetColor(11);
-    int index=1;
-    gotoxy(18,8);
-    cout<<"press  b to back menu";
-    for(auto x:scorebroad)
-    {   if(index==6)
-          break;
-        gotoxy(18,10+index);
-        cout<<name[x]<<"     "<<x;
-        index++;
-    }
-           SetColor(25);
+    showscore = true;
+    while (showscore)
+    {
+        system("cls");
+        SetColor(11);
+        int index = 1;
+        gotoxy(18, 8);
+        cout << "press  b to back menu";
+        for (auto x : scorebroad)
+        {
+            if (index == 6)
+                break;
+            gotoxy(18, 10 + index);
+            cout << name[x] << "     " << x;
+            index++;
+        }
+        SetColor(25);
         for (int i = 0; i < width; i++)
         {
             gotoxy(i + 15, 0 + 5);
             cout << (char)220;
         }
-         for (int i = 1; i < heigh - 1; i++)
+        for (int i = 1; i < heigh - 1; i++)
         {
             for (int j = 0; j < width; j++)
             {
                 if (j == 0 || j == width - 1)
                 {
                     gotoxy(j + 15, i + 5);
-                    if(j==0)
+                    if (j == 0)
                     {
-                        cout<<(char)221;
+                        cout << (char)221;
                     }
                     else
                     {
-                        cout<<(char)222;
+                        cout << (char)222;
                     }
                 }
             }
@@ -581,35 +594,35 @@ void show_hightscore()
         }
         Sleep(300);
         if (_kbhit())
-    {
-
-        switch (_getch())
         {
-        case 'b':
-            showscore=false;
-            choosing=false;
-            break;
+
+            switch (_getch())
+            {
+            case 'b':
+                showscore = false;
+                choosing = false;
+                break;
+            }
         }
+
+
     }
-
-
-}
 
 }
 void play1()
 {
 
-     nhapten();
+    nhapten();
 
-          draw();
-                while (!gameover )
+    draw();
+    while (!gameover)
     {
 
         input();
         logic();
         draw();
-}
-show_hightscore();
+    }
+    show_hightscore();
 
 
 
@@ -617,27 +630,28 @@ show_hightscore();
 int main()
 {
 
-   while(on)
-{    setup();
-      start_game();
-      if(ce["quit"])
-      {
-          on=false;
-      }
-        if(ce["play"])
-            {
+    while (on)
+    {
+        setup();
+        start_game();
+        if (ce["quit"])
+        {
+            on = false;
+        }
+        if (ce["play"])
+        {
 
-       play1();
+            play1();
+        }
+        if (ce["instruction"])
+        {
+            instruction();
+        }
+        if (ce["hight score"])
+        {
+            show_hightscore();
+        }
     }
-     if(ce["instruction"])
-    {
-        instruction();
-    }
-    if(ce["hight score"])
-    {
-        show_hightscore();
-    }
-}
 
 }
 void gotoxy(int column, int line)
@@ -665,4 +679,41 @@ void SetColor(int ForgC)
         SetConsoleTextAttribute(hStdOut, wColor);
     }
     return;
+}
+void Fruit()
+{
+    int check = 0;
+    do
+    {
+        fruitx = 2 + rand() % 76;
+        fruity = 2 + rand() % 18;
+        if (fruitx == x && fruity == y)
+        {
+            check = 1;
+            continue;
+        }
+        for (int i = 0; i < score; i++)
+        {
+            if (width == fruitx && heigh == fruity)
+            {
+                check = 1;
+                break;
+            }
+        }
+        if (check == 0)
+        {
+            SetColor(13);
+            inDoAn(fruitx,fruity);
+        }
+    } while (check == 1);
+}
+void inDoAn(int x,int y)
+{
+    gotoxy(x, y);
+    cout<<"*";
+}
+void XoaDoAn(int x,int y)
+{
+    gotoxy(x, y);
+    cout<<" ";
 }
