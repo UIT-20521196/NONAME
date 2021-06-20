@@ -10,9 +10,29 @@
 using namespace std;
 const int heigh = 30, width = 30;
 int x, y, fruitx, fruity, score;
-map<int, string>name;
+long body;
+vector<int, string>name;
 
-set<int, greater<int>>scorebroad;
+vector<int, greater<int>>scorebroad;
+vector<POINT>snake = {
+    POINT{ width / 2 + 2, heigh / 2 },
+    POINT{ width / 2 + 1, heigh / 2 },
+    POINT{ width / 2, heigh / 2 },
+    POINT{ width / 2 - 1, heigh / 2 },
+    POINT{ width / 2 - 2, heigh / 2 }
+};
+void drawSnakePart(POINT p)
+{
+    gotoxy(p.x, p.y);
+    // BODY là ký tự đại diện cho phần thân của con rắn
+    cout << body;
+}
+
+void drawSnake()
+{
+    for (size_t i = 0; i < snake.size(); i++)
+        drawSnakePart(snake[i]);
+}
 bool choosing, in_instruction, showscore, nhap;
 enum direction
 {
@@ -27,8 +47,8 @@ enum direction
 direction dir;
 direction di;
 string ten;
-map<string, int> ce;
-map<int, string> ec;
+vector<string, int> ce;
+vector<int, string> ec;
 
 vector<char> game{ 'g', 'a', 'm', 'e', 'o', 'v', 'e', 'r' };
 vector<char> play{ 'p', 'l', 'a', 'y' };
@@ -107,7 +127,7 @@ void logic()
         int prevy = snakey[0] = y;
         int prev2x;
         int prev2y;
-        for (int i = 1; i < snake; i++)
+        for (int i = 1; i < snake.size(); i++)
         {
             prev2x = snakex[i];
             prev2y = snakey[i];
@@ -703,39 +723,39 @@ void Fruit()
         if (check == 0)
         {
             SetColor(13);
-            inDoAn(fruitx,fruity);
+            inDoAn(fruitx, fruity);
         }
     } while (check == 1);
 }
-void inDoAn(int x,int y)
+void inDoAn(int x, int y)
 {
     gotoxy(x, y);
-    cout<<"*";
+    cout << "*";
 }
-void XoaDoAn(int x,int y)
+void XoaDoAn(int x, int y)
 {
     gotoxy(x, y);
-    cout<<" ";
+    cout << " ";
 }
 void XoaManHinh()
 {
-	HANDLE hOut;
-	COORD Position;
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	Position.X = 0;
-	Position.Y = 0;
-	SetConsoleCursorPosition(hOut, Position);
+    HANDLE hOut;
+    COORD Position;
+    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    Position.X = 0;
+    Position.Y = 0;
+    SetConsoleCursorPosition(hOut, Position);
 }
 void resizeConsole(int width, int height)
 {
-	HWND console = GetConsoleWindow();
-	RECT r;
-	GetWindowRect(console, &r);
-	MoveWindow(console, r.left, r.top, width, height, TRUE);
+    HWND console = GetConsoleWindow();
+    RECT r;
+    GetWindowRect(console, &r);
+    MoveWindow(console, r.left, r.top, width, height, TRUE);
 }
 void textcolor(int x)
 {
-	HANDLE mau;
-	mau = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(mau, x);
+    HANDLE mau;
+    mau = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(mau, x);
 }
